@@ -26,6 +26,8 @@ RUN apt-get install -y \
     lsb-release \
     tree \
     tar \
+    openssl \
+    git \
     zip \
     unzip \
     wget \
@@ -65,9 +67,34 @@ RUN terraform version
 
 
 # Install Cloud Vendor CLI Tools
+# Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install
 
+# Install Azure CLI
+#RUN apt-get remove azure-cli -y && apt-get autoremove -y
+#RUN curl -L https://aka.ms/InstallAzureCli | bash
+# RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+#     gpg --dearmor | \
+#     tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+
+# RUN AZ_REPO=$(lsb_release -cs) echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+#     tee /etc/apt/sources.list.d/azure-cli.list
+
+# RUN apt-get update && apt-get install -y azure-cli
+
+# Install Google Cloud CLI
 # TODO INSTALL AZURE CLI AND GOOGLE CLOUD CLI
+
+# Install Teleport
+RUN git clone https://github.com/gravitational/teleport \
+    && cd teleport/examples/aws/terraform/ha-autoscale-cluster \
+    && terraform init \
+    && cd ~
+
+# Install Helm 
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 \ 
+    && chmod +x get_helm.sh \
+    && bash ./get_helm.sh
 
 # Supportit Application Initialize
 COPY . /supportit
