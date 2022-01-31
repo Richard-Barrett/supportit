@@ -9,6 +9,7 @@ A Repo for Support Engineering Labs
 [![Labeler](https://github.com/Richard-Barrett/supportit/actions/workflows/label.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/label.yml)
 [![Terraform Security](https://github.com/Richard-Barrett/supportit/actions/workflows/tfsec.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/tfsec.yml)
 [![Terraform Validation](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml)
+[![Release](https://github.com/Richard-Barrett/supportit/actions/workflows/release.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/release.yml)
 
 ## Labs
 
