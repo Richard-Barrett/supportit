@@ -7,7 +7,6 @@ A Repo for Support Engineering Labs
 [![Go](https://github.com/Richard-Barrett/supportit/actions/workflows/go.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/go.yml)
 [![Greetings](https://github.com/Richard-Barrett/supportit/actions/workflows/greetings.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/greetings.yml)
 [![Labeler](https://github.com/Richard-Barrett/supportit/actions/workflows/label.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/label.yml)
-[![Terraform Security](https://github.com/Richard-Barrett/supportit/actions/workflows/tfsec.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/tfsec.yml)
 [![Terraform Validation](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml)
 [![Release](https://github.com/Richard-Barrett/supportit/actions/workflows/release.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/release.yml)
 
