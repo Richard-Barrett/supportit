@@ -1,5 +1,7 @@
 # SupportIt
 
+![Image](https://github.com/Richard-Barrett/supportit/blob/main/.assets/supportit_logo.png)
+
 A Repo for Support Engineering Labs
 
 [![CodeQL](https://github.com/Richard-Barrett/supportit/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/codeql-analysis.yml)
