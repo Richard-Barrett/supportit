@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.24.0 (HEAD)
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: web
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.24.0 (HEAD)
+      labels:
+        io.kompose.service: web
+    spec:
+      containers:
+        - env:
+            - name: GITLAB_OMNIBUS_CONFIG
+              value: |
+                external_url 'https://gitlab.example.com'
+                # Add any other gitlab.rb configuration here, each on its own line
+          image: gitlab/gitlab-ee:latest
+          name: web
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+            - containerPort: 22
+          resources: 
+          volumeMounts:
+            - mountPath: /etc/gitlab
+              name: web-claim0
+            - mountPath: /var/log/gitlab
+              name: web-claim1
+            - mountPath: /var/opt/gitlab
+              name: web-claim2
+      hostname: gitlab.example.com
+      restartPolicy: Always
+      volumes:
+        - name: web-claim0
+          persistentVolumeClaim:
+            claimName: web-claim0
+        - name: web-claim1
+          persistentVolumeClaim:
+            claimName: web-claim1
+        - name: web-claim2
+          persistentVolumeClaim:
+            claimName: web-claim2
+status: {}
