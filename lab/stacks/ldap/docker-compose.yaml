@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  openldap:
+    image: docker.io/bitnami/openldap:2.6
+    ports:
+      - '1389:1389'
+      - '1636:1636'
+    environment:
+      - LDAP_ADMIN_USERNAME=$LDAPADMIN_USER
+      - LDAP_ADMIN_PASSWORD=$LDAPADMIN_PASSWORD
+      - LDAP_USERS=foo,bar,baz
+      - LDAP_PASSWORDS=$FOO_PASSWORD, $BAR_PASSWORD, $BAZ_PASSWORD
+    volumes:
+      - 'openldap_data:/bitnami/openldap'
+
+volumes:
+  openldap_data:
+    driver: local
