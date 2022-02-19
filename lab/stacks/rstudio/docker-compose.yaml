@@ -42,7 +42,7 @@ services:
     networks:
       - net
     environment:
-      - PASSWORD=rstudio1
+      - PASSWORD=$RSTUDIO_PASSWORD
     expose:
       - 8787
 

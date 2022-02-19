@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.24.0 (HEAD)
+  labels:
+    io.kompose.service: openldap
+  name: openldap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: openldap
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yaml
+        kompose.version: 1.24.0 (HEAD)
+      labels:
+        io.kompose.service: openldap
+    spec:
+      containers:
+        - env:
+            - name: LDAP_ADMIN_PASSWORD
+            - name: LDAP_ADMIN_USERNAME
+            - name: LDAP_PASSWORDS
+              value: ', , '
+            - name: LDAP_USERS
+              value: foo,bar,baz
+          image: docker.io/bitnami/openldap:2.6
+          name: openldap
+          ports:
+            - containerPort: 1389
+            - containerPort: 1636
+          resources: {}
+          volumeMounts:
+            - mountPath: /bitnami/openldap
+              name: ldap-openldap-data
+      restartPolicy: Always
+      volumes:
+        - name: ldap-openldap-data
+          persistentVolumeClaim:
+            claimName: ldap-openldap-data
+status: {}
