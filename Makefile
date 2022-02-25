@@ -24,4 +24,4 @@ image:
 # Runs Container Image
 .PHONY: container
 container:
-	docker run -it -e $(IMAGE_NAME):$(IMAGE_TAG) bash
+	docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock rbarrett89/supportit /bin/bash
