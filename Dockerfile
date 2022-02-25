@@ -7,8 +7,11 @@ LABEL version="0.1"
 LABEL description="This is custom Docker Image for teleport labs."
 
 # Bring in Environmental Variables for AWS, GCP, Azure
+ARG AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
 ENV AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+ARG AWS_SECRET_KEY=${AWS_SECRET_KEY}
 ENV AWS_SECRET_KEY=${AWS_SECRET_KEY}
+ARG AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
 ENV AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
 
 # Disable Prompt During Packages Installation
