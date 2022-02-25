@@ -9,7 +9,7 @@ endif
 ifeq ($(UNAME_S),Darwin)
 	GOOS := darwin
 endif
-ifeq ($(UNAME_S), Windows))
+ifeq ($(UNAME_S), Windows)
 	GOOS := windows
 endif
 
@@ -24,4 +24,4 @@ image:
 # Runs Container Image
 .PHONY: container
 container:
-	docker run $(IMAGE_NAME):$(IMAGE_TAG) bash
+	docker run -it -e $(IMAGE_NAME):$(IMAGE_TAG) bash

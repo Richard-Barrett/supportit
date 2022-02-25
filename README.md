@@ -12,6 +12,8 @@ A Repo for Support Engineering Labs
 [![Terraform Validation](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml)
 [![Release](https://github.com/Richard-Barrett/supportit/actions/workflows/release.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/release.yml)
 
+## Directory Structure
+
 ## Labs
 
 ## How To Use The Repo
