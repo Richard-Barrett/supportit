@@ -10,6 +10,8 @@ A Repo for Support Engineering Labs
 [![Terraform Security](https://github.com/Richard-Barrett/supportit/actions/workflows/tfsec.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/tfsec.yml)
 [![Terraform Validation](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml)
 
+## Directory Structure
+
 ## Labs
 
 ## How To Use The Repo

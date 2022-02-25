@@ -1,11 +1,10 @@
 #Download base image ubuntu 20.04
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as supportit
 
 # LABEL about the custom image
-LABEL maintainer="richard.barrett@goteleport.com"
+LABEL maintainer="richard-barrett@outlook.com"
 LABEL version="0.1"
-LABEL description="This is custom Docker Image for \
-teleport labs."
+LABEL description="This is custom Docker Image for teleport labs."
 
 # Bring in Environmental Variables for AWS, GCP, Azure
 ENV AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
@@ -59,31 +58,37 @@ RUN unzip terraform_0.14.3_linux_amd64.zip
 RUN mv terraform /usr/local/bin/
 RUN terraform version
 
-# TODO: FIGURE OUT HOW TO INSTALL TERRAFORM ON DOCKER WITH APT AND OFFICIAL GPG KEY AND RELEASE ON MAIN
-# RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - 
-# RUN aapt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-# RUN apt update
-# RUN apt install terraform
+# Install Docker and Docker-Compose
+# RUN apt-get remove -y docker docker-engine docker.io containerd runc \
+#     && apt-get update -y \
+#     && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg \
+#     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+#     $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null \
+#     && apt-get update -y \
+#     && apt-get install -y docker-ce docker-ce-cli containerd.io
+RUN curl -fsSL https://get.docker.com -o get-docker.sh \
+    && sh get-docker.sh
 
+RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose \
+    && ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-# Install Cloud Vendor CLI Tools
+##################################
+# Install Cloud Vendor CLI Tools #
+##################################
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install
 
 # Install Azure CLI
-#RUN apt-get remove azure-cli -y && apt-get autoremove -y
-#RUN curl -L https://aka.ms/InstallAzureCli | bash
-# RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
-#     gpg --dearmor | \
-#     tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
-
-# RUN AZ_REPO=$(lsb_release -cs) echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
-#     tee /etc/apt/sources.list.d/azure-cli.list
-
-# RUN apt-get update && apt-get install -y azure-cli
+# https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # Install Google Cloud CLI
-# TODO INSTALL AZURE CLI AND GOOGLE CLOUD CLI
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | \
+    tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
+    && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
+    apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - \
+    && apt-get update && apt-get install google-cloud-sdk
 
 # Install Teleport
 RUN git clone https://github.com/gravitational/teleport \
@@ -96,8 +101,32 @@ RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/s
     && chmod +x get_helm.sh \
     && bash ./get_helm.sh
 
+#####################################
+# Install Troubleshooting CLI Tools #
+#####################################
+RUN apt-get install -y traceroute \
+    openssh-server \
+    bind9-utils \
+    dnsutils \
+    iftop \
+    vnstat \
+    iperf3 \
+    htop \
+    net-tools \
+    tcpdump \
+    slapd \
+    ldap-utils
+
+# # Install Trivy
+# RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add - \
+#     && echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/trivy.list \
+#     && apt-get update \
+#     && apt-get install trivy
+
+# TODO: See about bringing in systemd services so that you can invoke docker inside docker
+
 # Supportit Application Initialize
 COPY . /supportit
 WORKDIR /supportit
-ENTRYPOINT [ "/bin/bash" ]
+ENTRYPOINT service ssh start && bash
 CMD ["localhost"]
