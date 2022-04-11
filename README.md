@@ -56,10 +56,48 @@ You will find that you build an image called `rbarrett/supportit` and run a cont
 ## What's In This Repo
 
 Inside the `lab/` directory you will find various stacks available to you.
-Simply go inside the directory with the `docker-compose.yaml` file and do the following within the CLI.
+The labs are meant to mimic the current `Teleport` documentation and also give you access to `teleport` docker-compose resources.
+Simply go inside a directory with the `docker-compose.yaml` file in `lab/<your_chosen_lab>` and do the following within the CLI.
 
 ```bash
 docker-compose up
 ```
 
 The stack should build a local docker resources allowing for remote connection.
+
+## Things you need to install
+
+The following is not an all encompasing list, but is a basic list on resources you may need to get started:
+
+```bash
+aws-cli
+az-cli
+brew
+docker-desktop
+docker-compose
+gke-cli
+kubectl
+terraform
+vagrant
+virtualbox
+```
+
+If you are on a Mac, you can use Home Brew to install the various resources and packages you may need.
+
+## Working within the Container
+
+Working inside the container is pretty easy. 
+Some of the things that are installed include:
+
+- Terraform
+- AWS CLI
+- Azure CLU
+- GCP CLI
+- Docker
+- Docker-Compose
+- Git
+- Teleport
+
+It uses a multi-cache build that decreases local build times.
+As a result, you can spin up terraform, instances, and resources within your SupportIT Lab using exported credentials.
+With Makefile, you can work with it in a variety of ways.
