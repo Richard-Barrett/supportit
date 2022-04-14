@@ -54,3 +54,9 @@ WARNING: The MYSQL_PASSWORD variable is not set. Defaulting to a blank string.
 ```
 
 NOTE**: ENSURE YOU SET ANY VARIABLES DEFINED IN THE DOCKER COMPOSE FILE
+
+## Working With Teleport in The Docker Container
+
+To get a full view of teleport on your local, read the following guide on how to get started:
+- [Getting Started](https://goteleport.com/docs/getting-started/docker-compose/)
+
