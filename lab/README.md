@@ -24,6 +24,31 @@ All labs are built and based off of the following Teleport documentation:
 
 TODO ADD AN IMAGE
 
+## Directory Structure
+
+1. `apis/`
+    - API is the directory used to mimic [API](https://goteleport.com/docs/api/introduction/)
+2. `applications/`
+    - Is the direcotry used to mimic [Application Access](https://goteleport.com/docs/application-access/introduction/)
+3. `baremetal`
+    - Baremetal is the directory used to mimic on-prem installations with SSH [Server-Access](https://goteleport.com/docs/server-access/introduction/)
+4. `databases`
+    - Databases is used to mimic [Database Access](https://goteleport.com/docs/database-access/introduction/)
+5. `desktops`
+    - Desktops is the directory used to mimic [Desktop Access](https://goteleport.com/docs/desktop-access/introduction/)
+6. `idpintegrations`
+    - Idpintegrations is the directory used to mimic SSO [SSO](https://goteleport.com/docs/enterprise/sso/)
+7. `kubernetes`
+    - Kubernetes is the directory used to mimic Kubernetes Access [Kubernetes](https://goteleport.com/docs/kubernetes-access/introduction/)
+8. `minikube`
+    - A Terraform Configuration to help you spin up minikube on aws [minikube](https://registry.terraform.io/modules/scholzj/minikube/aws/latest)
+9. `stacks`
+    - Stacks direcotry is used to mimic various microservice platforms and integrations to teleport
+10. `teleport`
+    - telport is the actual lab and/or infra to spin up via `docker-compose` files.
+11. `vagrant`
+    - Vagrant stack to spin up teleport infrastructure.
+
 ## Using Stacks
 
 To use the `stacks/` directory and any `stack` that is housed within, you will need to first ensure you have `docker` and `docker-compose` installed on your local machine.
@@ -36,6 +61,7 @@ docker-compose up
 
 ## Using Teleport
 
+NOTE**: TELEPORT VERSIONS 6-8 WORK, 9 DOES NOT WORK!!!
 Using Teleport:
 
 1. Ensure you have logged into the local lab from the root directory of this repository:
@@ -47,13 +73,13 @@ Using Teleport:
 4. Once you have chosen which lab you want to spin up, simple use `docker-compose up` to spin up local resources
 
 ```bash
-docker-compose up
+docker-compose up -f docker-compose.yaml -d
 ```
 
 This will spin up the resources, you can then use the following to exec into those resources from within the lab.
 
 1. `docker container ls`
-    - list out the docker containers available
+    - list out the docker containers available and grab the container ID from the CONTAINER_ID column
 2. `docker container exec -it container_id /bin/bash`
     - Docker exec command to go into the container interactivelly with TTY Session
 
