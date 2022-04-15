@@ -50,7 +50,20 @@ Creating openssh            ... done
 If you don't set any of the variables it will warn you in the output:
 
 ```bash
-WARNING: The MYSQL_PASSWORD variable is not set. Defaulting to a blank string.
+❯ make lab
+Makefile:10: Extraneous text after `ifeq' directive
+docker-compose -f docker-compose.yaml up -d
+WARN[0000] The "TELEPORT_VERSION" variable is not set. Defaulting to a blank string.
+WARN[0000] The "TELEPORT_VERSION" variable is not set. Defaulting to a blank string.
+WARN[0000] The "TELEPORT_VERSION" variable is not set. Defaulting to a blank string.
+WARN[0000] The "TELEPORT_VERSION" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PASSWORD" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_ROOT_PASSWORD" variable is not set. Defaulting to a blank string.
+WARN[0000] The "DB_PASSWORD" variable is not set. Defaulting to a blank string.
+WARN[0000] The "KEYCLOAK_PASSWORD" variable is not set. Defaulting to a blank string.
+WARN[0000] The "GF_SECURITY_ADMIN_PASSWORD" variable is not set. Defaulting to a blank string.
+Error response from daemon: no such image: quay.io/gravitational/teleport-lab:: invalid reference format
+make: *** [lab] Error 1
 ```
 
 NOTE**: ENSURE YOU SET ANY VARIABLES DEFINED IN THE DOCKER COMPOSE FILE
