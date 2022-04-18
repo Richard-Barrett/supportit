@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: openssh
+  name: openssh
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: openssh
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yaml
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/jenkins-teleport: "true"
+        io.kompose.service: openssh
+    spec:
+      containers:
+        - args:
+            - -c
+            - /etc/teleport.d/scripts/start-sshd.sh
+          command:
+            - /bin/sh
+          image: quay.io/gravitational/teleport-lab:9
+          name: openssh
+          resources:
+            limits:
+              memory: "314572800"
+          volumeMounts:
+            - mountPath: /mnt/shared/certs
+              name: certs
+      hostname: mars.openssh.teleport
+      restartPolicy: Always
+      volumes:
+        - name: certs
+          persistentVolumeClaim:
+            claimName: certs
+status: {}
