@@ -7,7 +7,7 @@ endif
 ifeq ($(UNAME_S),Darwin)
 	GOOS := darwin
 endif
-ifeq ($(UNAME_S), Windows))
+ifeq ($(UNAME_S), Windows)
 	GOOS := windows
 endif
 
