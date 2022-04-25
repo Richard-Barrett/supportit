@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
   # sleeps for a second on startup to allow the configure container to run first.

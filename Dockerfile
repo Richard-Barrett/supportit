@@ -33,8 +33,11 @@ RUN apt-get install -y \
     tree \
     tar \
     openssl \
+    make \
     git \
     zip \
+    vim \
+    nano \
     unzip \
     wget \
     apt-transport-https \
@@ -74,20 +77,38 @@ RUN unzip terraform_0.14.3_linux_amd64.zip
 RUN mv terraform /usr/local/bin/
 RUN terraform version
 
-# Install Docker and Docker-Compose
+###############
+# Docker Base #
+###############
+# Install Docker in Docker
 FROM terraformbase as dockerbase
 RUN curl -fsSL https://get.docker.com -o get-docker.sh \
     && sh get-docker.sh
 
-RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose \
-    && ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+#######################
+# Docker-Compose Base #
+#######################
+# Install Docker-Compose
+FROM dockerbase as composebase
+RUN apt-get update -y
+RUN apt-get install docker-compose -y
+RUN docker-compose --version
+
+##########################
+# Kompose as komposebase #
+##########################
+# Install Kompose https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/
+FROM composebase as komposebase
+RUN curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-linux-amd64 -o kompose \
+    && chmod +x kompose \
+    && mv ./kompose /usr/local/bin/kompose
+
 
 ##################################
 # Install Cloud Vendor CLI Tools #
 ##################################
 # Install AWS CLI
-FROM dockerbase as cloudvendorbase
+FROM komposebase as cloudvendorbase
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install
 
 # Install Azure CLI
