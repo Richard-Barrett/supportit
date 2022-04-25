@@ -18,12 +18,15 @@ DOCKER_FLAGS := -v $(MKFILE_DIR)
 
 # Purge Teleport Containers
 .PHONY: purge
-purge: docker container rm $(docker container ls -a | grep -i teleport | awk '{print $1}') --force
+purge: 
+	docker container rm $(docker container ls -a | grep -i teleport | awk '{print $1}') --force
 
 # Runs Container Image
 .PHONY: container
-container:
-	docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock rbarrett89/supportit /bin/bash
+container: 
+	docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock \
+	-v ${HOME}/.kube/config:/root/.kube/config \
+	rbarrett89/supportit /bin/bash
 
 # Makes Image Base Layer
 .PHONY: image 
