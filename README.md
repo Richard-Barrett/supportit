@@ -18,7 +18,6 @@ A Repo for Support Engineering Labs
 [![Labeler](https://github.com/Richard-Barrett/supportit/actions/workflows/label.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/label.yml)
 [![Terraform Validation](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/validate.yml)
 [![Release](https://github.com/Richard-Barrett/supportit/actions/workflows/release.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/release.yml)
-[![Snyk Infrastructure as Code](https://github.com/Richard-Barrett/supportit/actions/workflows/snyk-infrastructure-analysis.yml/badge.svg)](https://github.com/Richard-Barrett/supportit/actions/workflows/snyk-infrastructure-analysis.yml)
 
 ## Directory Structure
 
