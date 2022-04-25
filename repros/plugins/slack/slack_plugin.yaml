@@ -1,0 +1,18 @@
+kind: user
+metadata:
+  name: access-plugin
+spec:
+  roles: ['access-plugin']
+version: v2
+---
+kind: role
+version: v4
+metadata:
+  name: access-plugin
+spec:
+  allow:
+    rules:
+      - resources: ['access_request']
+        verbs: ['list', 'read']
+      - resources: ['access_plugin_data']
+        verbs: ['update']

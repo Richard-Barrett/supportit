@@ -18,11 +18,15 @@ build:
 .PHONY: clearteleport
 clearteleport:
 	docker container rm $(docker container ls -a | grep -i teleport | awk '{print $1}') --force
-	
+
 .PHONY: lab
 lab:
 	docker-compose -f docker-compose.yaml up -d
 
+.PHONY: showteleport
+showteleport:
+	docker container ls | grep teleport-lab
+	
 .PHONY: teardown
 teardown:
 	docker-compose down

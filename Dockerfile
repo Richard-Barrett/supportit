@@ -153,7 +153,6 @@ RUN apt-get install -y traceroute \
     htop \
     net-tools \
     tcpdump \
-    slapd \
     ldap-utils
 
 ##############################
