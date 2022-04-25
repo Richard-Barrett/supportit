@@ -16,6 +16,10 @@ endif
 MOD_PATH := github.com/Richard-Barrett/supportit
 DOCKER_FLAGS := -v $(MKFILE_DIR)
 
+# Purge Teleport Containers
+.PHONY: purge
+purge: docker container rm $(docker container ls -a | grep -i teleport | awk '{print $1}') --force
+
 # Runs Container Image
 .PHONY: container
 container:

@@ -22,7 +22,7 @@ ENV AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Update Ubuntu Software repository
-RUN apt update
+RUN apt-get update -y
 
 # Install Base Dependencies
 RUN apt-get install -y \
@@ -37,25 +37,22 @@ RUN apt-get install -y \
     zip \
     unzip \
     wget \
-    apt-transport-https
+    apt-transport-https \
+    python3
 
 #############
 # Kube Base #
 #############
 # Download of Google Cloud Signing Key
 FROM base as kubebase
-RUN curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-
-# Adding Kubernetes Apt Repository
-RUN echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
-
-# Install Kubectl Tool
-RUN apt-get update
-RUN apt-get install -y kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+RUN curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+RUN echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 RUN kubectl version --client
 
-# Install Supportit Application Essential Packages
-RUN apt install -y python3
+# # Install Supportit Application Essential Packages
+# RUN apt install -y python3
 
 ###########
 # Go Base #
