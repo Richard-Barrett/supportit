@@ -1,0 +1,17 @@
+{
+    "builder": {
+      "gc": {
+        "defaultKeepStorage": "20GB",
+        "enabled": true
+      }
+    },
+    "dns": [
+      "8.8.8.8",
+      "192.168.0.1",
+      "127.0.0.1"
+    ],
+    "experimental": false,
+    "features": {
+      "buildkit": true
+    }
+  }
